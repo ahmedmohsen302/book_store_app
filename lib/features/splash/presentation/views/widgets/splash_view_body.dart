@@ -1,8 +1,36 @@
 import 'package:book_store_app/core/utils/assets.dart';
 import 'package:flutter/material.dart';
 
-class SplashViewBody extends StatelessWidget {
+class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
+
+  @override
+  State<SplashViewBody> createState() => _SplashViewBodyState();
+}
+
+class _SplashViewBodyState extends State<SplashViewBody>
+    with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
+  late Animation<Offset> slidingAnimation;
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 3),
+    );
+    slidingAnimation = Tween<Offset>(
+      begin: Offset(0, 12),
+      end: Offset.zero,
+    ).animate(animationController);
+    animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    animationController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +39,18 @@ class SplashViewBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Image.asset(AssetsData.logo),
-        const SizedBox(height: 15),
-        Text('Read Free Books', textAlign: TextAlign.center),
+        const SizedBox(height: 8),
+        AnimatedBuilder(
+          animation: slidingAnimation,
+          builder: (context, child) => SlideTransition(
+            position: slidingAnimation,
+            child: Text(
+              'Read Free Books',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+          ),
+        ),
       ],
     );
   }
