@@ -1,5 +1,9 @@
+import 'package:book_store_app/constants.dart';
 import 'package:book_store_app/core/utils/assets.dart';
+import 'package:book_store_app/features/home/presentation/views/home_view.dart';
+import 'package:book_store_app/features/splash/presentation/views/widgets/sliding_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -15,15 +19,8 @@ class _SplashViewBodyState extends State<SplashViewBody>
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 3),
-    );
-    slidingAnimation = Tween<Offset>(
-      begin: Offset(0, 12),
-      end: Offset.zero,
-    ).animate(animationController);
-    animationController.forward();
+    initSlidingAnimation();
+    navigateToHome();
   }
 
   @override
@@ -40,18 +37,30 @@ class _SplashViewBodyState extends State<SplashViewBody>
       children: [
         Image.asset(AssetsData.logo),
         const SizedBox(height: 8),
-        AnimatedBuilder(
-          animation: slidingAnimation,
-          builder: (context, child) => SlideTransition(
-            position: slidingAnimation,
-            child: Text(
-              'Read Free Books',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-          ),
-        ),
+        SlidingText(slidingAnimation: slidingAnimation),
       ],
     );
+  }
+
+  void initSlidingAnimation() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 3),
+    );
+    slidingAnimation = Tween<Offset>(
+      begin: Offset(0, 5),
+      end: Offset.zero,
+    ).animate(animationController);
+    animationController.forward();
+  }
+
+  void navigateToHome() {
+    Future.delayed(Duration(seconds: 3), () {
+      Get.to(
+        () => HomeView(),
+        duration: kTransitionDuration,
+        transition: Transition.fadeIn,
+      );
+    });
   }
 }
