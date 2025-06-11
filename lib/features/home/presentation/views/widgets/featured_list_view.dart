@@ -13,7 +13,7 @@ class FeaturedListView extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.only(right: 16.0),
             child: FeaturedListViewItem(),
           );
         },
