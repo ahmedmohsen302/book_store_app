@@ -1,5 +1,4 @@
 import 'package:book_store_app/core/utils/styles.dart';
-import 'package:book_store_app/features/home/presentation/views/widgets/best_seller_item.dart';
 import 'package:book_store_app/features/home/presentation/views/widgets/best_seller_list_view.dart';
 import 'package:book_store_app/features/home/presentation/views/widgets/custom_app_bar.dart';
 import 'package:book_store_app/features/home/presentation/views/widgets/featured_list_view.dart';
@@ -16,15 +15,12 @@ class HomeViewBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: CustomAppBar(),
-              ),
+              CustomAppBar(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: FeaturedListView(),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 40),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Text('Best Seller', style: Styles.textStyle18),

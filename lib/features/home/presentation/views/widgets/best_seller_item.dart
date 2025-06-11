@@ -53,10 +53,7 @@ class BestSellerItem extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 16.0),
-                      child: BookRating(),
-                    ),
+                    BookRating(),
                   ],
                 ),
               ],
