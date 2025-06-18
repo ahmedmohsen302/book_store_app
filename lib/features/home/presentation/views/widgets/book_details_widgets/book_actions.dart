@@ -1,4 +1,4 @@
-import 'package:book_store_app/core/utils/widgets/custom_button.dart';
+import 'package:book_store_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class BookActions extends StatelessWidget {
