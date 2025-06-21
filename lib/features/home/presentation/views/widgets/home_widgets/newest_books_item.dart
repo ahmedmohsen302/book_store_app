@@ -16,11 +16,14 @@ class BookItem extends StatelessWidget {
       height: 125,
       child: InkWell(
         onTap: () {
-          GoRouter.of(context).push(AppRouter.bookDetailsView);
+          GoRouter.of(context).push(AppRouter.bookDetailsView, extra: book);
         },
         child: Row(
           children: [
-            BookImage(imageUrl: book.volumeInfo.imageLinks.thumbnail),
+            Hero(
+              tag: book.volumeInfo.imageLinks.thumbnail,
+              child: BookImage(imageUrl: book.volumeInfo.imageLinks.thumbnail),
+            ),
             const SizedBox(width: 30),
             Expanded(
               child: Column(
