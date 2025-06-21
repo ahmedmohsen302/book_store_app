@@ -1,6 +1,6 @@
 import 'package:book_store_app/core/utils/functions/url_launcher.dart';
 import 'package:book_store_app/core/widgets/custom_button.dart';
-import 'package:book_store_app/features/home/data/models/book_model/item.dart';
+import 'package:book_store_app/core/models/book_model/item.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 

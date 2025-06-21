@@ -1,7 +1,7 @@
 import 'package:book_store_app/core/errors/failure.dart';
 import 'package:book_store_app/core/utils/api_service.dart';
-import 'package:book_store_app/features/home/data/models/book_model/book_model.dart';
-import 'package:book_store_app/features/home/data/models/book_model/item.dart';
+import 'package:book_store_app/core/models/book_model/book_model.dart';
+import 'package:book_store_app/core/models/book_model/item.dart';
 import 'package:book_store_app/features/home/data/repos/home_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -57,6 +57,25 @@ class HomeRepoImpl implements HomeRepo {
       return right(items);
     } catch (e) {
       if (e is DioError) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Item>>> searchBooks({
+    required String category,
+  }) async {
+    try {
+      final data = await apiService.get(
+        endPoint: 'volumes?q=subject:$category&Filtering=free-ebooks',
+      );
+      final bookModel = BookModel.fromJson(data);
+      final items = bookModel.items ?? [];
+      return right(items);
+    } catch (e) {
+      if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       }
       return left(ServerFailure(e.toString()));
