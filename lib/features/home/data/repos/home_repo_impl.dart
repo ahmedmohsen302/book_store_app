@@ -69,7 +69,7 @@ class HomeRepoImpl implements HomeRepo {
   }) async {
     try {
       final data = await apiService.get(
-        endPoint: 'volumes?q=subject:$category&Filtering=free-ebooks',
+        endPoint: 'volumes?q=$category&Filtering=free-ebooks',
       );
       final bookModel = BookModel.fromJson(data);
       final items = bookModel.items ?? [];
