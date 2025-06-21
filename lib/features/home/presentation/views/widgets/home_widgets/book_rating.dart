@@ -9,8 +9,8 @@ class BookRating extends StatelessWidget {
     required this.rating,
   });
   final MainAxisAlignment mainAxisAlignment;
-  final int count;
-  final int rating;
+  final num count;
+  final num rating;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class BookRating extends StatelessWidget {
       children: [
         Icon(Icons.favorite, color: Colors.red),
         const SizedBox(width: 5),
-        Text(rating.toString(), style: Styles.textStyle16),
+        Text(rating.round().toString(), style: Styles.textStyle16),
         const SizedBox(width: 5),
         Text(
           '($count)',

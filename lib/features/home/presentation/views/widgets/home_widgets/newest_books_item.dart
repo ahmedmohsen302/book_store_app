@@ -42,7 +42,10 @@ class BookItem extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 3),
-                  Text(book.volumeInfo.authors![0], style: Styles.textStyle16),
+                  Text(
+                    book.volumeInfo.authors?[0] ?? '',
+                    style: Styles.textStyle16,
+                  ),
                   const SizedBox(height: 3),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,7 +56,10 @@ class BookItem extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      BookRating(count: 0, rating: 0),
+                      BookRating(
+                        count: book.volumeInfo.pageCount ?? 0,
+                        rating: book.volumeInfo.averageRating ?? 0,
+                      ),
                     ],
                   ),
                 ],
