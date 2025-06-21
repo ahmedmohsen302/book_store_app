@@ -38,17 +38,30 @@ class ServerFailure extends Failure {
     }
   }
 
-  factory ServerFailure.fromResponse(
-    int statusCode,
-    Map<String, dynamic> josn,
-  ) {
-    if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure(josn['error']['message']);
-    } else if (statusCode == 404) {
-      return ServerFailure('Not found, try later');
-    } else if (statusCode == 500) {
-      return ServerFailure('Internal server error, try later');
+  factory ServerFailure.fromResponse(int statusCode, dynamic json) {
+    try {
+      if (json is Map<String, dynamic> && json.containsKey('error')) {
+        final error = json['error'];
+
+        if (error is Map<String, dynamic> && error.containsKey('message')) {
+          final message = error['message'];
+
+          if (message is String) {
+            return ServerFailure(message);
+          }
+        }
+      }
+
+      // Fallbacks based on status code
+      if (statusCode == 404) {
+        return ServerFailure('Not found, try later');
+      } else if (statusCode == 500) {
+        return ServerFailure('Internal server error, try later');
+      }
+
+      return ServerFailure('Unexpected error: $statusCode');
+    } catch (e) {
+      return ServerFailure('Error parsing server response');
     }
-    return ServerFailure('Oops there has been an error');
   }
 }

@@ -38,7 +38,7 @@ class HomeRepoImpl implements HomeRepo {
       final items = bookModel.items ?? [];
       return right(items);
     } catch (e) {
-      if (e is DioError) {
+      if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       }
       return left(ServerFailure(e.toString()));
