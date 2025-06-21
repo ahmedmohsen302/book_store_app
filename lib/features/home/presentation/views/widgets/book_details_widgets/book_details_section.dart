@@ -26,7 +26,11 @@ class BookDetailsSection extends StatelessWidget {
           child: Text('J.K.Rowling', style: Styles.textStyle18),
         ),
         const SizedBox(height: 10),
-        BookRating(mainAxisAlignment: MainAxisAlignment.center),
+        BookRating(
+          mainAxisAlignment: MainAxisAlignment.center,
+          count: 0,
+          rating: 0,
+        ),
         const SizedBox(height: 30),
         BookActions(),
       ],

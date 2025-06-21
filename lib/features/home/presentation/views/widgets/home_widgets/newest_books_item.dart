@@ -1,12 +1,14 @@
 import 'package:book_store_app/core/utils/app_router.dart';
-import 'package:book_store_app/core/utils/assets.dart';
 import 'package:book_store_app/core/utils/styles.dart';
+import 'package:book_store_app/features/home/data/models/book_model/item.dart';
+import 'package:book_store_app/features/home/presentation/views/widgets/book_image.dart';
 import 'package:book_store_app/features/home/presentation/views/widgets/home_widgets/book_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class BookItem extends StatelessWidget {
-  const BookItem({super.key});
+  const BookItem({super.key, required this.book});
+  final Item book;
 
   @override
   Widget build(BuildContext context) {
@@ -18,28 +20,17 @@ class BookItem extends StatelessWidget {
         },
         child: Row(
           children: [
-            AspectRatio(
-              aspectRatio: 2.5 / 4,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.red,
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage(AssetsData.testImage),
-                  ),
-                ),
-              ),
-            ),
+            BookImage(imageUrl: book.volumeInfo.imageLinks.thumbnail),
             const SizedBox(width: 30),
             Expanded(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .5,
                     child: Text(
-                      'Harry Potter and the goblet of fire',
+                      book.volumeInfo.title ?? '',
                       style: Styles.textStyle20.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -48,18 +39,18 @@ class BookItem extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 3),
-                  Text('J.K.Rowling', style: Styles.textStyle16),
+                  Text(book.volumeInfo.authors![0], style: Styles.textStyle16),
                   const SizedBox(height: 3),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '19.99\$',
+                        'free',
                         style: Styles.textStyle18.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      BookRating(),
+                      BookRating(count: 0, rating: 0),
                     ],
                   ),
                 ],
